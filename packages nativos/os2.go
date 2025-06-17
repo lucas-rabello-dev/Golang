@@ -7,9 +7,6 @@ import (
 	"runtime"
 )
 
-
-
-
 // 1- retornar a pasta atual
 func getCurrentDirectory() string {
 	dir, err := os.Getwd()
@@ -75,7 +72,25 @@ func getSystemInfo() {
 
     fmt.Println(string(out))
 }
+// Desligar o computador em 1 hora
+func shutDownInOneHour() {
+	cmd := exec.Command("shutdown", "/s", "/t", "3600")
+	err := cmd.Run()
 
+	if err != nil {
+		fmt.Println("Erro ao agendar o desligamento:", err)
+	}
+}
+
+// cancelar o desligamento
+func cancelShutdown() {
+	cmd := exec.Command("shutdown", "/a")
+	err := cmd.Run()
+
+	if err != nil {
+		fmt.Println("Erro ao cancelar o desligamento:", err)
+	}
+}
 
 func main() {
 
