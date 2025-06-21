@@ -25,6 +25,24 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("Updated %d row(s)", affectedRows)
+	log.Printf("Updated %d row(s) \n", affectedRows)
+
+
+	// exclusão de dados
+
+	result, err = db.Exec("DELETE FROM users WHERE id = ?", 2) // excluindo o valor e ID 2
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	affectedRows, err = result.RowsAffected()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf("Deleted %d row(s) \n", affectedRows)
+
+
 
 }
