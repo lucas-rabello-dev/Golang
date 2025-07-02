@@ -32,8 +32,4 @@ func main() {
 	}
 	db.Create(&products)
 
-	
-
-
-
 }

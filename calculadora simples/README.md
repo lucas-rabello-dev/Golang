@@ -1,1 +1,0 @@
-# Calculadora simples em GO usando parâmetros na hora de compilar 
