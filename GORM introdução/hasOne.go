@@ -1,24 +1,30 @@
-// dividir em categorias
-// outras tabelas dentro de um .db
 package main
 
 import (
+	"fmt"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"fmt"
 )
 
+type SerialNumber struct {
+	ID int `gorm: "primaryKey"`
+	Number string
+	ProductID int
+}
+
 type Category struct {
-	ID int `gorm: "primerykey"`
+	ID   int `gorm: "primerykey"`
 	Name string
 }
 
 type Product struct {
-	ID int `gorm: primaryKey`
-	Name string
-	Price float64
+	ID         int `gorm: primaryKey`
+	Name       string
+	Price      float64
 	CategoryId int // armazenar o ID
-	Category Category
+	Category   Category
+	SerialNumber SerialNumber
 	gorm.Model
 }
 
@@ -28,7 +34,7 @@ func main() {
 		panic("Failed to connect database")
 	}
 
-	db.AutoMigrate(&Product{}, &Category{})
+	db.AutoMigrate(&Product{}, &Category{}, SerialNumber{})
 
 	defer fmt.Println("Operação concluída!")
 
@@ -43,12 +49,16 @@ func main() {
 		CategoryId: category.ID,
 	})
 
+	// inserindo Serial Number
+	db.Create(&SerialNumber{
+		Number: "12323",
+		ProductID: 1,
+	})
+
 	// Listando produtos
-
 	var products []Product
-	db.Preload("Category").Find(&products)
+	db.Preload("Category").Preload("Serial Number").Find(&products)
 	for _, product := range products {
-		fmt.Println(product.Name, product.Category.Name, product.Price)
+		fmt.Println(product.Name, product.Category.Name, product.Price, product.SerialNumber.Number)
 	}
-
 }
