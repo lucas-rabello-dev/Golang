@@ -4,6 +4,7 @@ import (
 	"estoque/internal/models"
 	"fmt"
 	"strconv"
+	"time"
 )
 
 type Estoque struct {
@@ -31,6 +32,16 @@ func (e *Estoque) AddItem(item models.Item) error {
 		item.Quantity += existingItem.Quantity
 	}
 	e.itens[strconv.Itoa(item.ID)] = item
+
+	// Parte dos logs
+	e.logs = append(e.logs, models.Log{
+		TimeStamp: time.Now(),
+		Action: "Entrada de Item no Estoque",
+		User: "Administrador",
+		ItemId: item.ID,
+		Quantity: item.Quantity,
+		Reason: "Adicionando novos itens ao estoque",
+	})
 	return nil
 }
 
@@ -41,4 +52,48 @@ func (e *Estoque) ListItens() []models.Item {
 		itensList = append(itensList, item)
 	}
 	return itensList
+}
+
+
+// Método para listar logs
+func (e *Estoque) ViewLogs() []models.Log {
+	return e.logs
+}
+
+// Método para calcular o preço total
+func (e *Estoque) CalculateTotalCost() float64 {
+	var totalCost float64
+	for _, item := range e.itens {
+		totalCost += float64(item.Quantity) * item.Price
+	}
+	return totalCost
+}
+
+func FindByName(data []models.Item, name string) ([]models.Item, error){
+	var result []models.Item
+	for _, item := range data {
+		if item.Name == name {
+			result = append(result, item)
+		}
+	}
+
+	if len(result) == 0 {
+		return nil, fmt.Errorf("nenhum item com o nome '%s' encontrado", name)
+	}
+	return result, nil
+}
+
+
+// Usando Generics
+func FindBy[T any] (data []T, comparator func(T) bool) ([]T, error){
+	var result []T
+	for _, v := range data {
+		if comparator(v) {
+			result = append(result, v)
+		}
+	}
+	if len(result) == 0 {
+		return nil, fmt.Errorf("nenhum item foi encontrado")
+	}
+	return result, nil
 }
