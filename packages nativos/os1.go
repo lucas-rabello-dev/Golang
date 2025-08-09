@@ -31,7 +31,6 @@ func main() {
 
 
 	// lendo um arquivo
-
 	conteudo, err := os.ReadFile("exemplo.txt")
 
 	if err != nil {
@@ -39,7 +38,4 @@ func main() {
 		return
 	}
 	fmt.Println("Conteudo:", string(conteudo))
-
-
-
 }
