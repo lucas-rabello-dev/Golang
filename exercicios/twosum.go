@@ -21,7 +21,7 @@ func main() {
 
 	array := []int{2, 4, 6, 2}
 
-	target := 10
+	target := 4
 
 	resul := twoSum(array, target)
 	fmt.Printf("Valores: %d + %d \n", array[resul[0]], array[resul[1]])
