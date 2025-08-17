@@ -43,7 +43,7 @@ Max[int](20, 10)
 Max[float64](3.5, 6.5)
 ```
 
-<span style="color: red;"><i><b>Os tipos dos parâmetros tem que ser iguais!</b></i></span>
+<i><b>Os tipos dos parâmetros tem que ser iguais!</b></i>
 
 
 
