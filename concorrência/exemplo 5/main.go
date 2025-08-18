@@ -16,7 +16,7 @@ func main() {
 	inicio := time.Now()
 
 	// carrega o diretório no início
-	files, err := os.ReadDir("./textos")
+	files, err := os.ReadDir("./textos/")
 	if err != nil {
 		panic(err)
 	}
