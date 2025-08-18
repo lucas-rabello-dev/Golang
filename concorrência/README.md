@@ -1,5 +1,6 @@
 # Concurrency in Golang
 resumo do vídeo do <a href="https://www.youtube.com/@huncoding">HunCoding</a>
+
 <a href="https://www.youtube.com/watch?v=PMM5Fia9O4g">clique aqui para ir ao vídeo</a>
 
 <hr>
@@ -62,3 +63,41 @@ Processo é uma instância de um programa que está rodando
 A CPU gasta tempo copiando o contexto da thread atual em execução em memória e resgatando o contexto das próximas threads à executar. A CPU não está fazendo context switching (troca de contexto) 
 
 Portanto, é mais eficiênte usar um processo que contém várias threads.
+
+### C10K Problem
+
+O scheduler do sistema aloca um espaço de tempo para a execução de cada processo
+
+Esse tempo definido é dividido igualmente entre cada thread executada dentro desse processo.
+
+<table>
+
+<tr> 
+    <th>Scheduler Period</th>
+    <th>Number of threads</th>
+    <th>Thread time slice</th>
+</tr>
+
+<tr>
+    <td>10ms</td>
+    <td>2</td>
+    <td>5ms</td>
+</tr>
+
+<tr> 
+    <td>10ms</td>
+    <td>5</td>
+    <td>2ms</td>
+</td>
+
+<tr> 
+    <td>10ms</td>
+    <td>5</td>
+    <td>10us?</td>
+</td>
+
+</table>
+
+Quanto mais thread, menos tempo cada uma vai ter para executar e assim, possivelmente a troca de contexto do sistema vai demorar mais para acontecer do que propriamente o tempo que cada thread vei ter para executar.
+
+## Mas onde entram as goroutines?
