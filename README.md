@@ -4,6 +4,23 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1200px-Go_Logo_Blue.svg.png" alt="golang_imagem" width="200">
 </p>
 
+### Organização do Repositório:
+```
+/algoritimos
+/BD
+/channels
+/concorrência
+/exercicios
+/generics
+/golang básico
+/GORM (ORM para Golang)
+/interfaces
+/methods
+/testes
+/tratamento de erros 
+``` 
+
+
 ## Redes sociais:
 <hr>
 
