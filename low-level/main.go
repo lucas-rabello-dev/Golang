@@ -2,12 +2,17 @@ package main
 
 import "fmt"
 
-type Sim struct {
-	item int
+func main() {
+	var nums = [3]int{0, 1, 2}
+	var ptr *int = &nums[0]
+	fmt.Println(ptr, *ptr)
+	Sv()
+	
 }
 
-func main() {
-	p := new(Sim)
-	fmt.Println(p, *p)
-
+// segmentation violation
+func Sv() {
+	var ptr *int = nil
+	a := *ptr
+	if a == 0 {}
 }
