@@ -1,13 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
 func main() {
-	var nums = [3]int{0, 1, 2}
-	var ptr *int = &nums[0]
-	fmt.Println(ptr, *ptr)
-	Sv()
-	
+	arr := [3]byte{'a', 'b', 'c'}
+
+	fmt.Println(unsafe.Sizeof(arr), "bytes") // 3 bytes
+	fmt.Println(int(unsafe.Sizeof([]byte("sla"))) / 8, "bytes") // retorna 3 bytes
+	fmt.Println(unsafe.Sizeof(byte('a')), "byte") // 1 bytes
 }
 
 // segmentation violation
